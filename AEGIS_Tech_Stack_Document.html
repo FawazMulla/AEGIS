@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AEGIS — Technology Stack Document</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 14mm 16mm 14mm;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.5;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    border-left: 6px solid #6366f1;
+  }
+  .header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 24pt;
+    letter-spacing: -0.5px;
+    color: #f8fafc;
+  }
+  .header-card .subtitle {
+    font-size: 13pt;
+    color: #c7d2fe;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .motto-banner {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.25);
+    border: 1px solid #818cf8;
+    color: #e0e7ff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+    font-size: 9.5pt;
+    color: #cbd5e1;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 12px;
+  }
+
+  /* ── HEADINGS ── */
+  h2 {
+    color: #0f172a;
+    font-size: 15pt;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3 {
+    color: #334155;
+    font-size: 12pt;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+  h4 {
+    color: #475569;
+    font-size: 10.5pt;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  p {
+    margin: 0 0 10px 0;
+    color: #334155;
+    text-align: justify;
+  }
+  ul {
+    margin: 4px 0 10px 0;
+    padding-left: 20px;
+    color: #334155;
+    font-size: 9.5pt;
+  }
+  li {
+    margin-bottom: 3px;
+  }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge-blue { background: #e0e7ff; color: #3730a3; }
+  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-amber { background: #fef3c7; color: #92400e; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+  .badge-purple { background: #f3e8ff; color: #6b21a8; }
+  .badge-cyan { background: #cffafe; color: #155e75; }
+  .badge-rose { background: #ffe4e6; color: #9f1239; }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    page-break-inside: avoid;
+  }
+  .card-accent-indigo { border-left: 4px solid #6366f1; }
+  .card-accent-emerald { border-left: 4px solid #10b981; }
+  .card-accent-amber { border-left: 4px solid #f59e0b; }
+  .card-accent-cyan { border-left: 4px solid #06b6d4; }
+  .card-accent-rose { border-left: 4px solid #f43f5e; }
+  .card-accent-violet { border-left: 4px solid #8b5cf6; }
+  .card-accent-sky { border-left: 4px solid #0ea5e9; }
+  .card-header {
+    font-weight: 700;
+    font-size: 11pt;
+    color: #0f172a;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card p {
+    font-size: 9.5pt;
+    margin-bottom: 6px;
+  }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+  }
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  /* ── CALLOUT ── */
+  .callout-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+    page-break-inside: avoid;
+  }
+  .callout-box strong {
+    color: #1d4ed8;
+  }
+  .callout-green {
+    background: #f0fdf4;
+    border-left-color: #22c55e;
+  }
+  .callout-green strong {
+    color: #15803d;
+  }
+  .callout-amber {
+    background: #fffbeb;
+    border-left-color: #f59e0b;
+  }
+  .callout-amber strong {
+    color: #b45309;
+  }
+
+  /* ── LAYER DIAGRAM ── */
+  .layer-stack {
+    margin: 16px 0;
+    page-break-inside: avoid;
+  }
+  .layer-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 3px;
+  }
+  .layer-label {
+    width: 200px;
+    min-width: 200px;
+    background: #1e1b4b;
+    color: #c7d2fe;
+    padding: 10px 14px;
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px 0 0 6px;
+  }
+  .layer-content {
+    flex: 1;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-left: none;
+    padding: 10px 14px;
+    font-size: 9pt;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-radius: 0 6px 6px 0;
+  }
+  .layer-content .tech-tag {
+    display: inline-block;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+  }
+
+  /* ── CODE BLOCK ── */
+  code {
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9pt;
+    color: #6366f1;
+  }
+  .code-block {
+    background: #090d16;
+    color: #f1f5f9;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin: 16px 0;
+    border: 1px solid #1e293b;
+    page-break-inside: avoid;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .code-block .highlight-green { color: #4ade80; font-weight: bold; }
+  .code-block .highlight-amber { color: #fbbf24; font-weight: bold; }
+  .code-block .highlight-cyan { color: #38bdf8; font-weight: bold; }
+  .code-block .highlight-dim { color: #64748b; }
+  .code-block .highlight-purple { color: #c084fc; font-weight: bold; }
+
+  /* ── PAGE BREAK ── */
+  .page-break {
+    page-break-after: always;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 9pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  HEADER                                                            -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <div class="header-card">
+    <div style="text-transform: uppercase; font-size: 9pt; letter-spacing: 1.5px; color: #93c5fd; font-weight: 700;">
+      Technology Stack Document — Major Project Review 2
+    </div>
+    <h1>AEGIS</h1>
+    <div class="subtitle">Autonomous Engineering Graph &amp; Intelligence System</div>
+    <div class="motto-banner">
+      &ldquo;See every risk before it ships. Heal every failure after it lands.&rdquo;
+    </div>
+    <div class="meta-grid">
+      <div><strong>Document Type:</strong> Technology Stack &amp; Tooling Reference</div>
+      <div><strong>Architecture Style:</strong> Event-Driven Microservices + Knowledge Graph</div>
+      <div><strong>Status:</strong> Review 2 — Interactive Prototype</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 1: EXECUTIVE SUMMARY                                      -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>1. Technology Stack Overview</h2>
+  <p>
+    The AEGIS technology stack is architected around a <strong>seven-layer model</strong> that cleanly separates concerns from data ingestion through to end-user presentation. Each layer is purpose-selected to serve the dual-commitment architecture: <em>pre-deployment risk prediction</em> and <em>post-deployment autonomous self-healing</em>, both grounded on a single, shared Neo4j Knowledge Graph.
+  </p>
+  <p>
+    Technology selections follow three guiding principles: <strong>(1)</strong> prefer graph-native tooling for structural reasoning, <strong>(2)</strong> use battle-tested open-source infrastructure where possible, and <strong>(3)</strong> maintain clean separation between the reasoning layer (which thinks) and the execution layer (which acts), ensuring safety-by-design.
+  </p>
+
+  <!-- Layer stack visual -->
+  <div class="layer-stack">
+    <div class="layer-row">
+      <div class="layer-label">⑦ Presentation</div>
+      <div class="layer-content">
+        <span class="tech-tag">React 18</span>
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">Tailwind CSS</span>
+        <span class="tech-tag">shadcn/ui</span>
+        <span class="tech-tag">Cytoscape.js</span>
+        <span class="tech-tag">Framer Motion</span>
+        <span class="tech-tag">Recharts</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">⑥ API Gateway</div>
+      <div class="layer-content">
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">REST API</span>
+        <span class="tech-tag">WebSocket</span>
+        <span class="tech-tag">Pydantic v2</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">⑤ Reasoning &amp; AI</div>
+      <div class="layer-content">
+        <span class="tech-tag">LangChain</span>
+        <span class="tech-tag">OpenAI / Gemini API</span>
+        <span class="tech-tag">Neo4j Cypher Tool</span>
+        <span class="tech-tag">ReAct Agent</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">④ Predictive Engine</div>
+      <div class="layer-content">
+        <span class="tech-tag">BFS/DFS Traversal</span>
+        <span class="tech-tag">Risk Scoring</span>
+        <span class="tech-tag">Simulation Sandbox</span>
+        <span class="tech-tag">APOC Algorithms</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">③ Knowledge Graph</div>
+      <div class="layer-content">
+        <span class="tech-tag">Neo4j 5.x</span>
+        <span class="tech-tag">Cypher</span>
+        <span class="tech-tag">APOC</span>
+        <span class="tech-tag">GDS Library</span>
+        <span class="tech-tag">Neo4j Python Driver</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">② Collector Layer</div>
+      <div class="layer-content">
+        <span class="tech-tag">OpenTelemetry</span>
+        <span class="tech-tag">Prometheus</span>
+        <span class="tech-tag">Grafana</span>
+        <span class="tech-tag">Jaeger</span>
+        <span class="tech-tag">Kafka</span>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-label">① Data Sources</div>
+      <div class="layer-content">
+        <span class="tech-tag">Git / GitHub</span>
+        <span class="tech-tag">Kubernetes</span>
+        <span class="tech-tag">PostgreSQL</span>
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">REST/gRPC APIs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 2: FRONTEND STACK                                         -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>2. Frontend — Presentation Layer</h2>
+  <p>
+    The AEGIS Mission Control dashboard is a high-fidelity, real-time interface designed for SRE operators and engineering leadership. It renders the live Knowledge Graph topology, streams AI reasoning traces, and provides interactive simulation controls for both pre-deployment risk analysis and post-deployment healing.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>React</strong></td>
+        <td>18.x (latest stable)</td>
+        <td><span class="badge badge-blue">UI Framework</span></td>
+        <td>Component-based rendering engine for the Mission Control dashboard, providing efficient virtual DOM diffing for real-time graph state updates.</td>
+      </tr>
+      <tr>
+        <td><strong>TypeScript</strong></td>
+        <td>5.x (strict mode)</td>
+        <td><span class="badge badge-blue">Language</span></td>
+        <td>Type safety across all layers. Enforces typed interfaces for graph node/edge models, incident schemas, and WebSocket message contracts.</td>
+      </tr>
+      <tr>
+        <td><strong>Vite</strong></td>
+        <td>Latest stable</td>
+        <td><span class="badge badge-green">Bundler</span></td>
+        <td>Fast HMR during development, optimised production builds, native ESM support, path aliases (<code>@/*</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Tailwind CSS</strong></td>
+        <td>v3.x / v4.x</td>
+        <td><span class="badge badge-cyan">Styling</span></td>
+        <td>Utility-first CSS framework. Custom design tokens for AEGIS's dark mission-control theme, status colours (critical, warning, healthy), and responsive breakpoints.</td>
+      </tr>
+      <tr>
+        <td><strong>shadcn/ui</strong> (Radix)</td>
+        <td>Latest</td>
+        <td><span class="badge badge-cyan">Components</span></td>
+        <td>Headless, accessible UI primitives (Tabs, Dialogs, Dropdowns, Toasts) composing the dual-mode intelligence panel and simulation controls.</td>
+      </tr>
+      <tr>
+        <td><strong>Cytoscape.js</strong></td>
+        <td>Latest stable</td>
+        <td><span class="badge badge-purple">Graph Rendering</span></td>
+        <td>Primary graph visualisation engine. Renders the 54-node knowledge graph topology with interactive zoom, pan, click-to-inspect flyouts, and animated edge particles for live traffic flow.</td>
+      </tr>
+      <tr>
+        <td><strong>React Flow</strong></td>
+        <td>Latest stable</td>
+        <td><span class="badge badge-purple">Graph Rendering</span></td>
+        <td>Alternative / complementary graph renderer for structured pipeline views (AEGIS Loop visualisation, remediation workflow DAGs).</td>
+      </tr>
+      <tr>
+        <td><strong>Framer Motion</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-amber">Animation</span></td>
+        <td>Orchestrates UI micro-animations: pulse rings on fault-injected nodes, blast-radius expansion animations, healing progress transitions, and timeline scrubber interactions.</td>
+      </tr>
+      <tr>
+        <td><strong>Recharts</strong></td>
+        <td>v2.x</td>
+        <td><span class="badge badge-amber">Data Viz</span></td>
+        <td>SVG-based charts for latency sparklines, risk score gauges, incident frequency histograms, and MTTR comparison bar charts.</td>
+      </tr>
+      <tr>
+        <td><strong>Lucide React</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-green">Icons</span></td>
+        <td>Consistent, semantic stroke icon set used across all dashboard panels (shields, alerts, graphs, settings).</td>
+      </tr>
+      <tr>
+        <td><strong>Zustand</strong></td>
+        <td>Latest stable</td>
+        <td><span class="badge badge-rose">State Mgmt</span></td>
+        <td>Lightweight client state management. Separate stores for graph state, simulation results, incident feed, and WebSocket connection status.</td>
+      </tr>
+      <tr>
+        <td><strong>Sonner</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-green">Toasts</span></td>
+        <td>Low-friction toast notifications for real-time alerts: fault detection, healing completion, risk gate verdicts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-box">
+    <strong>Design System Convention:</strong> All UI components are built using shadcn/ui primitives composed with Tailwind CSS utility classes. No external UI frameworks (Material UI, Bootstrap, Chakra) are permitted — ensuring a consistent, lightweight, and fully-customisable design system aligned with the AEGIS dark mission-control aesthetic.
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 3: BACKEND STACK                                          -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>3. Backend — API &amp; Orchestration Layer</h2>
+  <p>
+    The AEGIS backend serves as the orchestration hub connecting the Knowledge Graph, the LLM reasoning agent, the simulation engine, and the guarded execution layer. It exposes both REST endpoints for dashboard consumption and WebSocket channels for real-time streaming of AI reasoning traces and incident telemetry.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Python</strong></td>
+        <td>3.11+</td>
+        <td><span class="badge badge-blue">Language</span></td>
+        <td>Primary backend language. Chosen for its rich AI/ML ecosystem, LangChain compatibility, and Neo4j driver maturity.</td>
+      </tr>
+      <tr>
+        <td><strong>FastAPI</strong></td>
+        <td>0.100+</td>
+        <td><span class="badge badge-green">Web Framework</span></td>
+        <td>Async-first web framework powering all REST and WebSocket endpoints. Auto-generates OpenAPI specs. Native Pydantic v2 integration for request/response validation.</td>
+      </tr>
+      <tr>
+        <td><strong>Pydantic v2</strong></td>
+        <td>2.x</td>
+        <td><span class="badge badge-cyan">Validation</span></td>
+        <td>Runtime data validation for all API contracts, graph query parameters, incident schemas, and LLM tool-call argument parsing.</td>
+      </tr>
+      <tr>
+        <td><strong>Uvicorn</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-green">ASGI Server</span></td>
+        <td>High-performance async server running FastAPI in production. Supports WebSocket connections for real-time dashboard feeds.</td>
+      </tr>
+      <tr>
+        <td><strong>Celery</strong> (optional)</td>
+        <td>5.x</td>
+        <td><span class="badge badge-amber">Task Queue</span></td>
+        <td>Background task orchestration for long-running operations: repository scanning, graph population batch jobs, and scheduled drift detection.</td>
+      </tr>
+      <tr>
+        <td><strong>Redis</strong></td>
+        <td>7.x</td>
+        <td><span class="badge badge-rose">Cache / Broker</span></td>
+        <td>Caching layer for frequently-queried graph subsets, session state, and Celery message broker. Rate limiting for API endpoints.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="card card-accent-indigo">
+      <div class="card-header">
+        <span>REST API Surface</span>
+        <span class="badge badge-blue">Endpoints</span>
+      </div>
+      <p><code>GET /api/graph/topology</code> — Full graph node/edge payload for Cytoscape.js rendering.</p>
+      <p><code>POST /api/simulate/pre-ship</code> — Run blast-radius simulation for a given PR diff.</p>
+      <p><code>POST /api/simulate/inject-fault</code> — Trigger chaos injection in the sandbox.</p>
+      <p><code>GET /api/incidents</code> — Paginated incident history with reasoning traces.</p>
+      <p><code>WS /ws/feed</code> — Real-time WebSocket stream of AI reasoning, telemetry, and healing events.</p>
+    </div>
+    <div class="card card-accent-emerald">
+      <div class="card-header">
+        <span>API Design Principles</span>
+        <span class="badge badge-green">Standards</span>
+      </div>
+      <p><strong>Schema-First:</strong> All endpoints defined via Pydantic models; OpenAPI spec auto-generated.</p>
+      <p><strong>Typed Contracts:</strong> Shared TypeScript types generated from OpenAPI for frontend consumption.</p>
+      <p><strong>Versioned:</strong> All routes prefixed with <code>/api/v1/</code> for future backward compatibility.</p>
+      <p><strong>Async-Native:</strong> All I/O-bound operations (graph queries, LLM calls) use <code>async/await</code>.</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 4: KNOWLEDGE GRAPH                                        -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>4. Knowledge Graph — Core Data Substrate</h2>
+  <p>
+    The Neo4j Knowledge Graph is the <strong>architectural centrepiece</strong> of AEGIS. It serves as the single source of truth for structural entities (services, APIs, databases, pods), runtime entities (incidents, decisions, actions), and the typed relationships between them. Both the pre-deployment simulator and the post-deployment healing agent query the same graph — this shared substrate is the system's primary novelty.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Neo4j</strong></td>
+        <td>5.x (Community / Enterprise)</td>
+        <td><span class="badge badge-purple">Graph Database</span></td>
+        <td>Stores all structural and runtime entities. Provides native graph traversal for blast-radius computation, dependency analysis, and incident-similarity searches.</td>
+      </tr>
+      <tr>
+        <td><strong>Cypher</strong></td>
+        <td>Neo4j Native</td>
+        <td><span class="badge badge-purple">Query Language</span></td>
+        <td>Declarative graph query language for all AEGIS operations: topology retrieval, BFS blast-radius traversal, 2-hop RCA neighbourhood queries, and incident memory writes.</td>
+      </tr>
+      <tr>
+        <td><strong>APOC</strong></td>
+        <td>5.x</td>
+        <td><span class="badge badge-amber">Plugin Library</span></td>
+        <td>Extended procedures: <code>apoc.path.expandConfig</code> for configurable traversals, <code>apoc.algo.dijkstra</code> for weighted shortest-path analysis, data import/export utilities.</td>
+      </tr>
+      <tr>
+        <td><strong>Neo4j GDS</strong></td>
+        <td>2.x</td>
+        <td><span class="badge badge-amber">Graph Algorithms</span></td>
+        <td>Graph Data Science library for advanced analytics: PageRank (service criticality ranking), community detection (failure blast domains), betweenness centrality (bottleneck identification).</td>
+      </tr>
+      <tr>
+        <td><strong>neo4j Python Driver</strong></td>
+        <td>5.x</td>
+        <td><span class="badge badge-green">Connector</span></td>
+        <td>Official async-capable Python driver for all backend-to-Neo4j communication. Connection pooling, transaction management, and result streaming.</td>
+      </tr>
+      <tr>
+        <td><strong>PostgreSQL</strong></td>
+        <td>15+</td>
+        <td><span class="badge badge-blue">Relational DB</span></td>
+        <td>Structured storage for audit logs, user sessions, API keys, and time-series incident metadata that benefits from relational indexing rather than graph traversal.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Graph Schema Summary (54 Nodes, 142 Typed Edges)</h3>
+  <div class="code-block"><span class="highlight-cyan">// Node Labels</span>
+<span class="highlight-green">(:Service)</span>       <span class="highlight-dim">— Core microservices (8 nodes)</span>
+<span class="highlight-green">(:Database)</span>      <span class="highlight-dim">— Data stores: PostgreSQL, Redis, MongoDB, Kafka (6 nodes)</span>
+<span class="highlight-green">(:APIEndpoint)</span>   <span class="highlight-dim">— REST/gRPC endpoint definitions (20+ nodes)</span>
+<span class="highlight-green">(:Pod)</span>           <span class="highlight-dim">— Kubernetes container replicas (20+ nodes)</span>
+<span class="highlight-green">(:Incident)</span>      <span class="highlight-dim">— Runtime incident records (dynamic, grows over time)</span>
+<span class="highlight-green">(:Decision)</span>      <span class="highlight-dim">— Remediation decisions with reasoning traces</span>
+
+<span class="highlight-cyan">// Relationship Types</span>
+<span class="highlight-amber">[:CALLS]</span>         <span class="highlight-dim">— Service-to-service dependency  {latency_p99, protocol}</span>
+<span class="highlight-amber">[:DEPENDS_ON]</span>    <span class="highlight-dim">— Service-to-database dependency</span>
+<span class="highlight-amber">[:EXPOSES]</span>       <span class="highlight-dim">— Service-to-API endpoint mapping</span>
+<span class="highlight-amber">[:INSTANCE_OF]</span>   <span class="highlight-dim">— Pod-to-service instance binding</span>
+<span class="highlight-amber">[:OCCURRED_IN]</span>   <span class="highlight-dim">— Incident-to-service (runtime memory)</span>
+<span class="highlight-amber">[:RESOLVED_BY]</span>   <span class="highlight-dim">— Incident-to-decision outcome link</span></div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 5: AI / LLM REASONING LAYER                              -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>5. AI &amp; Reasoning — Autonomous Intelligence Layer</h2>
+  <p>
+    The reasoning layer is where AEGIS distinguishes itself from conventional AIOps tools. Rather than applying fixed rules to logs and metrics, AEGIS deploys an LLM-powered <strong>ReAct agent</strong> that grounds every diagnostic hypothesis in <em>live graph queries</em> — querying service dependencies, historical incidents, and blast-radius topology before forming conclusions.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>LangChain</strong></td>
+        <td>0.2+ / Latest</td>
+        <td><span class="badge badge-purple">Agent Framework</span></td>
+        <td>Orchestrates the ReAct agent loop: Thought → Action (Cypher query / telemetry fetch) → Observation → repeat until diagnosis. Manages tool-calling, chain-of-thought prompting, and output parsing.</td>
+      </tr>
+      <tr>
+        <td><strong>OpenAI API</strong></td>
+        <td>GPT-4 / GPT-4o</td>
+        <td><span class="badge badge-rose">LLM Provider</span></td>
+        <td>Primary LLM backbone for reasoning, diagnosis narration, remediation candidate evaluation, and natural-language explanation generation.</td>
+      </tr>
+      <tr>
+        <td><strong>Google Gemini API</strong></td>
+        <td>Gemini 1.5 Pro+</td>
+        <td><span class="badge badge-rose">LLM Provider</span></td>
+        <td>Alternative / secondary LLM provider. Multi-model support enables comparative evaluation and failover resilience.</td>
+      </tr>
+      <tr>
+        <td><strong>Neo4j Cypher Tool</strong></td>
+        <td>Custom</td>
+        <td><span class="badge badge-amber">Agent Tool</span></td>
+        <td>Custom LangChain tool that allows the agent to compose and execute Cypher queries against the Knowledge Graph during reasoning — the core mechanism for <em>graph-grounded RCA</em>.</td>
+      </tr>
+      <tr>
+        <td><strong>Telemetry Query Tool</strong></td>
+        <td>Custom</td>
+        <td><span class="badge badge-amber">Agent Tool</span></td>
+        <td>Agent tool to fetch live Prometheus metrics (latency, error rates, CPU/memory) for services identified during graph traversal.</td>
+      </tr>
+      <tr>
+        <td><strong>Vector Store</strong></td>
+        <td>ChromaDB / Pinecone</td>
+        <td><span class="badge badge-cyan">Similarity Search</span></td>
+        <td>Stores embeddings of past incident descriptions for incident-similarity retrieval. The agent queries this to find historically similar failures and their successful remediations.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-box callout-green">
+    <strong>Graph-Grounded Reasoning (Core Novelty):</strong> Unlike conventional AIOps that scan raw logs with pattern matching, the AEGIS agent's first action on any anomaly is a Cypher query: <code>MATCH (s:Service {name: $alerting_service})-[:CALLS|DEPENDS_ON*1..2]-(neighbor) RETURN neighbor</code>. This structural grounding eliminates hallucinated diagnoses and ensures every hypothesis is anchored to real dependency topology.
+  </div>
+
+  <h3>Agent Tool-Calling Architecture</h3>
+  <div class="code-block"><span class="highlight-cyan">┌─────────────────────────────────────────────────────────────────────┐</span>
+│  <span class="highlight-amber">AEGIS ReAct Agent Loop</span>                                            │
+│                                                                     │
+│  <span class="highlight-green">THOUGHT:</span> "PaymentService latency spiked. Let me check its        │
+│           downstream dependencies and recent incident history."     │
+│                                                                     │
+│  <span class="highlight-cyan">ACTION:</span>  <span class="highlight-purple">neo4j_cypher_tool</span>(                                       │
+│            "MATCH (p:Service {name:'PaymentService'})-[:DEPENDS_ON] │
+│             ->(db) RETURN db.name, db.type, db.connection_pool"     │
+│          )                                                          │
+│                                                                     │
+│  <span class="highlight-amber">OBSERVATION:</span> PostgreSQL Payments DB — pool: 20/20 (EXHAUSTED)    │
+│                                                                     │
+│  <span class="highlight-green">THOUGHT:</span> "DB connection pool is fully exhausted. Checking if      │
+│           similar incident occurred before..."                      │
+│                                                                     │
+│  <span class="highlight-cyan">ACTION:</span>  <span class="highlight-purple">vector_similarity_tool</span>("PostgreSQL pool exhaustion")      │
+│                                                                     │
+│  <span class="highlight-amber">OBSERVATION:</span> INC-087: Same root cause, resolved by scaling pool   │
+│              to 50 + rolling restart. Success rate: 100%.           │
+│                                                                     │
+│  <span class="highlight-green">DIAGNOSIS:</span> Root Cause = DB Pool Exhaustion (confidence: 94%)     │
+│  <span class="highlight-green">REMEDY:</span>    Scale pool to 50 + pod rolling restart                 │
+<span class="highlight-cyan">└─────────────────────────────────────────────────────────────────────┘</span></div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 6: OBSERVABILITY & TELEMETRY                              -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>6. Observability &amp; Telemetry Stack</h2>
+  <p>
+    The telemetry layer instruments the sandbox testbed environment with production-grade observability, providing the raw signal that feeds both anomaly detection and the AI reasoning agent's diagnostic queries. All three pillars of observability — <strong>metrics, logs, and traces</strong> — are captured via OpenTelemetry and routed to purpose-built backends.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenTelemetry</strong></td>
+        <td>Latest stable</td>
+        <td><span class="badge badge-cyan">Instrumentation</span></td>
+        <td>Unified instrumentation SDK for all sandbox microservices. Auto-instruments HTTP/gRPC calls, database queries, and Kafka message flow. Generates traces, metrics, and structured logs in a vendor-neutral format.</td>
+      </tr>
+      <tr>
+        <td><strong>Prometheus</strong></td>
+        <td>2.x</td>
+        <td><span class="badge badge-amber">Metrics Store</span></td>
+        <td>Pull-based time-series metrics collection. Stores service latency (P50/P95/P99), error rates, CPU/memory utilisation, connection pool gauges, and custom AEGIS health counters.</td>
+      </tr>
+      <tr>
+        <td><strong>Grafana</strong></td>
+        <td>10.x</td>
+        <td><span class="badge badge-green">Dashboards</span></td>
+        <td>Metrics visualisation and alerting. Pre-built dashboards for sandbox service health, Kubernetes resource utilisation, and AEGIS performance benchmarks (TTD, TTH, MTTR).</td>
+      </tr>
+      <tr>
+        <td><strong>Jaeger</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-blue">Tracing</span></td>
+        <td>Distributed tracing backend. Captures end-to-end request traces across the microservice mesh, enabling the AI agent to correlate latency spikes to specific service hops.</td>
+      </tr>
+      <tr>
+        <td><strong>Loki</strong> (optional)</td>
+        <td>Latest</td>
+        <td><span class="badge badge-purple">Log Aggregation</span></td>
+        <td>Centralised log aggregation for all sandbox services. Structured JSON logs indexed by service, severity, and trace ID for cross-referencing with distributed traces.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="card card-accent-cyan">
+      <div class="card-header">
+        <span>Three Pillars of Observability</span>
+        <span class="badge badge-cyan">Signal Types</span>
+      </div>
+      <p><strong>Metrics (Prometheus):</strong> Quantitative time-series — latency percentiles, error rates, saturation gauges, request throughput.</p>
+      <p><strong>Traces (Jaeger):</strong> Distributed request traces with span-level timing across service boundaries.</p>
+      <p><strong>Logs (Loki):</strong> Structured, contextual event logs correlated by trace ID for root-cause drill-down.</p>
+    </div>
+    <div class="card card-accent-amber">
+      <div class="card-header">
+        <span>AEGIS-Specific Metrics</span>
+        <span class="badge badge-amber">Custom</span>
+      </div>
+      <p><strong><code>aegis_ttd_seconds</code>:</strong> Time-to-Detect — seconds from anomaly onset to alert raised.</p>
+      <p><strong><code>aegis_ttdiag_seconds</code>:</strong> Time-to-Diagnose — seconds from alert to root-cause identification.</p>
+      <p><strong><code>aegis_tth_seconds</code>:</strong> Time-to-Heal — seconds from diagnosis to verified recovery.</p>
+      <p><strong><code>aegis_diagnosis_accuracy</code>:</strong> Boolean match of agent diagnosis vs. injected ground-truth fault.</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 7: INFRASTRUCTURE & DEVOPS                               -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>7. Infrastructure &amp; DevOps</h2>
+  <p>
+    AEGIS is deployed and evaluated on a fully containerised, locally reproducible Kubernetes sandbox. This ensures the entire predict-diagnose-heal-learn loop can be demonstrated safely, repeatably, and without requiring access to production cloud infrastructure.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Technology</th>
+        <th style="width: 14%;">Version</th>
+        <th style="width: 18%;">Category</th>
+        <th style="width: 46%;">Role in AEGIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Docker</strong></td>
+        <td>24.x+</td>
+        <td><span class="badge badge-blue">Containerisation</span></td>
+        <td>All microservices, databases, and AEGIS components are containerised with multi-stage Dockerfiles. Ensures reproducible builds across development and demonstration environments.</td>
+      </tr>
+      <tr>
+        <td><strong>Kubernetes</strong></td>
+        <td>1.28+</td>
+        <td><span class="badge badge-purple">Orchestration</span></td>
+        <td>Container orchestration platform. Manages pod scheduling, service discovery, health probes, and rolling updates for the sandbox testbed.</td>
+      </tr>
+      <tr>
+        <td><strong>Kind / Minikube</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-green">Local K8s</span></td>
+        <td>Local Kubernetes cluster for sandbox evaluation. Kind (Kubernetes-in-Docker) preferred for CI reproducibility; Minikube for developer ergonomics.</td>
+      </tr>
+      <tr>
+        <td><strong>Helm</strong></td>
+        <td>3.x</td>
+        <td><span class="badge badge-amber">Package Manager</span></td>
+        <td>Kubernetes package manager for deploying the sandbox testbed, Neo4j, Prometheus, Grafana, and Kafka via versioned Helm charts.</td>
+      </tr>
+      <tr>
+        <td><strong>Docker Compose</strong></td>
+        <td>v2</td>
+        <td><span class="badge badge-blue">Local Dev</span></td>
+        <td>Development-mode orchestration for running the full AEGIS stack locally without Kubernetes (Neo4j, FastAPI, Redis, frontend dev server).</td>
+      </tr>
+      <tr>
+        <td><strong>Chaos Mesh / Litmus</strong></td>
+        <td>Latest</td>
+        <td><span class="badge badge-red">Chaos Engineering</span></td>
+        <td>Controlled fault injection framework. Injects pod crashes, CPU saturation, network latency, and database timeouts to test AEGIS's autonomous healing capabilities.</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Actions</strong></td>
+        <td>N/A</td>
+        <td><span class="badge badge-green">CI/CD</span></td>
+        <td>Continuous integration pipeline: linting, type-checking, unit tests, Docker image builds, and automated AEGIS evaluation benchmark runs.</td>
+      </tr>
+      <tr>
+        <td><strong>Apache Kafka</strong></td>
+        <td>3.x</td>
+        <td><span class="badge badge-cyan">Messaging</span></td>
+        <td>Event streaming bus for asynchronous communication between sandbox microservices (order events, payment confirmations, inventory updates) — modelled as a node in the Knowledge Graph.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 8: TESTING & QUALITY                                      -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>8. Testing &amp; Quality Assurance</h2>
+
+  <div class="card-grid-3">
+    <div class="card card-accent-indigo">
+      <div class="card-header">
+        <span>Unit Testing</span>
+      </div>
+      <p><strong>Vitest</strong> — Frontend component unit tests with Testing Library.</p>
+      <p><strong>Pytest</strong> — Backend unit tests for FastAPI endpoints, graph query builders, and agent tool functions.</p>
+    </div>
+    <div class="card card-accent-emerald">
+      <div class="card-header">
+        <span>Integration Testing</span>
+      </div>
+      <p><strong>Testcontainers</strong> — Spin up ephemeral Neo4j and PostgreSQL containers for integration tests.</p>
+      <p><strong>httpx</strong> — Async HTTP client for end-to-end API integration testing.</p>
+    </div>
+    <div class="card card-accent-rose">
+      <div class="card-header">
+        <span>Chaos &amp; Evaluation</span>
+      </div>
+      <p><strong>Chaos Mesh</strong> — Automated fault injection benchmarks.</p>
+      <p><strong>Custom Harness</strong> — AEGIS-specific evaluation runner measuring TTD, TTH, and diagnosis accuracy.</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 9: COMPLETE DEPENDENCY MAP                                -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>9. Complete Technology Dependency Map</h2>
+  <p>
+    The table below provides a consolidated, categorised view of every technology in the AEGIS stack, including its selection rationale and the specific AEGIS layer it serves.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 14%;">Layer</th>
+        <th style="width: 16%;">Technology</th>
+        <th style="width: 14%;">Category</th>
+        <th style="width: 56%;">Selection Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="7"><strong>Presentation</strong></td>
+        <td>React 18</td>
+        <td>UI Framework</td>
+        <td>Industry standard; concurrent rendering for real-time graph updates.</td>
+      </tr>
+      <tr>
+        <td>TypeScript</td>
+        <td>Language</td>
+        <td>End-to-end type safety; shared types between frontend and backend.</td>
+      </tr>
+      <tr>
+        <td>Tailwind CSS</td>
+        <td>Styling</td>
+        <td>Utility-first; rapid iteration on dark mission-control theme.</td>
+      </tr>
+      <tr>
+        <td>shadcn/ui</td>
+        <td>Components</td>
+        <td>Headless, accessible; full design ownership without framework lock-in.</td>
+      </tr>
+      <tr>
+        <td>Cytoscape.js</td>
+        <td>Graph Viz</td>
+        <td>Purpose-built for network graph rendering; plugin ecosystem for layouts.</td>
+      </tr>
+      <tr>
+        <td>Framer Motion</td>
+        <td>Animation</td>
+        <td>Production-grade animation library; orchestrates healing transitions.</td>
+      </tr>
+      <tr>
+        <td>Zustand</td>
+        <td>State</td>
+        <td>Minimal boilerplate; per-domain stores; excellent TypeScript support.</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>Backend</strong></td>
+        <td>Python 3.11+</td>
+        <td>Language</td>
+        <td>AI/ML ecosystem maturity; LangChain + Neo4j driver availability.</td>
+      </tr>
+      <tr>
+        <td>FastAPI</td>
+        <td>Framework</td>
+        <td>Async-first; auto-generated OpenAPI; native Pydantic validation.</td>
+      </tr>
+      <tr>
+        <td>Redis</td>
+        <td>Cache</td>
+        <td>Sub-millisecond caching; Celery broker; rate limiting.</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>Knowledge Graph</strong></td>
+        <td>Neo4j 5.x</td>
+        <td>Graph DB</td>
+        <td>Native graph storage; Cypher query language; APOC + GDS ecosystem.</td>
+      </tr>
+      <tr>
+        <td>APOC + GDS</td>
+        <td>Plugins</td>
+        <td>Extended traversals, graph algorithms (PageRank, centrality).</td>
+      </tr>
+      <tr>
+        <td>PostgreSQL</td>
+        <td>Relational DB</td>
+        <td>Audit logs, structured metadata; complements graph for tabular data.</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>AI / Reasoning</strong></td>
+        <td>LangChain</td>
+        <td>Agent Framework</td>
+        <td>ReAct agent loop; tool-calling; prompt management; output parsing.</td>
+      </tr>
+      <tr>
+        <td>OpenAI / Gemini</td>
+        <td>LLM Provider</td>
+        <td>State-of-the-art reasoning; tool-calling support; multi-model flexibility.</td>
+      </tr>
+      <tr>
+        <td>ChromaDB</td>
+        <td>Vector Store</td>
+        <td>Incident-similarity search via embeddings; lightweight and self-hosted.</td>
+      </tr>
+      <tr>
+        <td rowspan="4"><strong>Observability</strong></td>
+        <td>OpenTelemetry</td>
+        <td>Instrumentation</td>
+        <td>Vendor-neutral; auto-instruments all service communication.</td>
+      </tr>
+      <tr>
+        <td>Prometheus</td>
+        <td>Metrics</td>
+        <td>Industry standard time-series; PromQL for agent metric queries.</td>
+      </tr>
+      <tr>
+        <td>Grafana</td>
+        <td>Dashboards</td>
+        <td>Pre-built ecosystem; Prometheus + Jaeger data source integration.</td>
+      </tr>
+      <tr>
+        <td>Jaeger</td>
+        <td>Tracing</td>
+        <td>Distributed tracing; OpenTelemetry-native; trace-to-log correlation.</td>
+      </tr>
+      <tr>
+        <td rowspan="4"><strong>Infrastructure</strong></td>
+        <td>Docker</td>
+        <td>Containers</td>
+        <td>Reproducible builds; multi-stage images; CI/CD compatibility.</td>
+      </tr>
+      <tr>
+        <td>Kubernetes</td>
+        <td>Orchestration</td>
+        <td>Production-parity sandbox; target deployment platform for Review 3.</td>
+      </tr>
+      <tr>
+        <td>Kind / Minikube</td>
+        <td>Local K8s</td>
+        <td>Zero-cost local cluster for development and demonstration.</td>
+      </tr>
+      <tr>
+        <td>Chaos Mesh</td>
+        <td>Chaos Eng.</td>
+        <td>Kubernetes-native fault injection; controlled evaluation benchmarks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 10: INTEGRATION ARCHITECTURE                              -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>10. Integration &amp; Data Flow Architecture</h2>
+  <p>
+    The diagram below illustrates how data flows through the AEGIS stack during both operational modes — pre-deployment risk simulation and post-deployment autonomous healing.
+  </p>
+
+  <div class="code-block"><span class="highlight-cyan">═══════════════════════════════════════════════════════════════════════════════════</span>
+  <span class="highlight-amber">MODE 1: "See Every Risk Before It Ships"</span>
+<span class="highlight-cyan">═══════════════════════════════════════════════════════════════════════════════════</span>
+
+  <span class="highlight-green">GitHub PR Webhook</span>
+        │
+        ▼
+  <span class="highlight-cyan">FastAPI</span>  ──parse diff──▶  <span class="highlight-purple">Simulation Engine</span>  ──BFS traversal──▶  <span class="highlight-green">Neo4j</span>
+        │                                                               │
+        │                        ◄── blast radius + risk score ─────────┘
+        ▼
+  <span class="highlight-amber">CI/CD Shield Gate</span>  ──verdict──▶  <span class="highlight-green">GitHub Status Check</span>
+        │
+        ▼
+  <span class="highlight-cyan">WebSocket</span>  ──stream──▶  <span class="highlight-green">React Dashboard</span>  (Cytoscape.js renders impact)
+
+<span class="highlight-cyan">═══════════════════════════════════════════════════════════════════════════════════</span>
+  <span class="highlight-amber">MODE 2: "Heal Every Failure After It Lands"</span>
+<span class="highlight-cyan">═══════════════════════════════════════════════════════════════════════════════════</span>
+
+  <span class="highlight-green">OpenTelemetry / Prometheus</span>  ──anomaly signal──▶  <span class="highlight-cyan">FastAPI</span>
+        │
+        ▼
+  <span class="highlight-purple">LangChain ReAct Agent</span>
+        │
+        ├──tool call──▶  <span class="highlight-green">Neo4j Cypher Tool</span>    (2-hop dependency query)
+        ├──tool call──▶  <span class="highlight-amber">Prometheus Tool</span>      (live metric fetch)
+        ├──tool call──▶  <span class="highlight-cyan">Vector Store Tool</span>    (similar incident lookup)
+        │
+        ▼
+  <span class="highlight-green">Diagnosis + Ranked Remediation Candidates</span>
+        │
+        ▼
+  <span class="highlight-purple">Guarded Execution Layer</span>  ──apply fix──▶  <span class="highlight-green">Kubernetes API</span>
+        │                                           │
+        │       ◄── health probe verification ──────┘
+        │       ◄── Dead-Man's Switch (auto-rollback if unhealthy)
+        │
+        ▼
+  <span class="highlight-cyan">Feedback Writer</span>  ──write──▶  <span class="highlight-green">Neo4j</span>  (new :Incident + :Decision nodes)
+        │
+        ▼
+  <span class="highlight-amber">Future risk predictions now incorporate this incident</span></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  SECTION 11: VERSION & COMPATIBILITY                               -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <h2>11. Version Policy &amp; Compatibility Matrix</h2>
+
+  <div class="callout-box callout-amber">
+    <strong>Version Policy:</strong> AEGIS pins <strong>major</strong> versions of all core dependencies and floats patch versions for security updates. All version constraints are locked via <code>package-lock.json</code> (frontend) and <code>poetry.lock</code> / <code>requirements.txt</code> (backend) to ensure reproducible builds across all environments.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dependency</th>
+        <th>Minimum Version</th>
+        <th>Version Policy</th>
+        <th>Compatibility Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Node.js</td>
+        <td>18 LTS+</td>
+        <td>Pin major, float minor</td>
+        <td>Required for Vite dev server and build toolchain.</td>
+      </tr>
+      <tr>
+        <td>Python</td>
+        <td>3.11+</td>
+        <td>Pin minor</td>
+        <td>Required for <code>asyncio</code> performance improvements and LangChain compatibility.</td>
+      </tr>
+      <tr>
+        <td>Neo4j</td>
+        <td>5.0+</td>
+        <td>Pin major</td>
+        <td>Cypher syntax and APOC compatibility tied to Neo4j 5.x series.</td>
+      </tr>
+      <tr>
+        <td>Docker</td>
+        <td>24.0+</td>
+        <td>Pin major</td>
+        <td>Multi-stage build support and BuildKit features required.</td>
+      </tr>
+      <tr>
+        <td>Kubernetes</td>
+        <td>1.28+</td>
+        <td>Pin minor</td>
+        <td>API version compatibility for Chaos Mesh CRDs and Helm charts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <!--  FOOTER                                                            -->
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+  <div class="footer">
+    AEGIS — Autonomous Engineering Graph &amp; Intelligence System &bull; Technology Stack Document &bull; Major Project Review 2
+  </div>
+
+</body>
+</html>
