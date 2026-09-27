@@ -11,7 +11,7 @@
     {
       "id": "api-gateway",
       "type": "custom",
-      "position": { "x": 500, "y": 50 },
+      "position": { "x": 750, "y": 40 },
       "data": {
         "id": "api-gateway",
         "label": "API Gateway (Kong / OCI Ingress)",
@@ -29,7 +29,7 @@
     {
       "id": "auth-service",
       "type": "custom",
-      "position": { "x": 150, "y": 200 },
+      "position": { "x": 150, "y": 220 },
       "data": {
         "id": "auth-service",
         "label": "Auth Service (OAuth2 / JWT)",
@@ -47,7 +47,7 @@
     {
       "id": "order-service",
       "type": "custom",
-      "position": { "x": 400, "y": 200 },
+      "position": { "x": 550, "y": 220 },
       "data": {
         "id": "order-service",
         "label": "Order Service (Spring / Node)",
@@ -65,7 +65,7 @@
     {
       "id": "payment-service",
       "type": "custom",
-      "position": { "x": 650, "y": 200 },
+      "position": { "x": 950, "y": 220 },
       "data": {
         "id": "payment-service",
         "label": "Payment Service (Fintech Gateway)",
@@ -83,7 +83,7 @@
     {
       "id": "inventory-service",
       "type": "custom",
-      "position": { "x": 900, "y": 200 },
+      "position": { "x": 1350, "y": 220 },
       "data": {
         "id": "inventory-service",
         "label": "Inventory Service",
@@ -101,7 +101,7 @@
     {
       "id": "notification-service",
       "type": "custom",
-      "position": { "x": 250, "y": 350 },
+      "position": { "x": 350, "y": 400 },
       "data": {
         "id": "notification-service",
         "label": "Notification Service",
@@ -119,7 +119,7 @@
     {
       "id": "shipping-service",
       "type": "custom",
-      "position": { "x": 550, "y": 350 },
+      "position": { "x": 750, "y": 400 },
       "data": {
         "id": "shipping-service",
         "label": "Shipping Service",
@@ -137,7 +137,7 @@
     {
       "id": "analytics-worker",
       "type": "custom",
-      "position": { "x": 800, "y": 350 },
+      "position": { "x": 1150, "y": 400 },
       "data": {
         "id": "analytics-worker",
         "label": "Analytics Worker (Stream Processor)",
@@ -155,7 +155,7 @@
     {
       "id": "redis-session-cache",
       "type": "custom",
-      "position": { "x": 100, "y": 500 },
+      "position": { "x": 100, "y": 580 },
       "data": {
         "id": "redis-session-cache",
         "label": "Redis Session Cache (Cluster)",
@@ -173,7 +173,7 @@
     {
       "id": "postgres-auth",
       "type": "custom",
-      "position": { "x": 250, "y": 500 },
+      "position": { "x": 350, "y": 580 },
       "data": {
         "id": "postgres-auth",
         "label": "PostgreSQL (Auth DB)",
@@ -191,7 +191,7 @@
     {
       "id": "postgres-orders",
       "type": "custom",
-      "position": { "x": 450, "y": 500 },
+      "position": { "x": 650, "y": 580 },
       "data": {
         "id": "postgres-orders",
         "label": "PostgreSQL (Orders DB)",
@@ -209,7 +209,7 @@
     {
       "id": "postgres-payments",
       "type": "custom",
-      "position": { "x": 650, "y": 500 },
+      "position": { "x": 950, "y": 580 },
       "data": {
         "id": "postgres-payments",
         "label": "PostgreSQL (Payments DB)",
@@ -227,7 +227,7 @@
     {
       "id": "kafka-cluster",
       "type": "custom",
-      "position": { "x": 850, "y": 500 },
+      "position": { "x": 1250, "y": 580 },
       "data": {
         "id": "kafka-cluster",
         "label": "Kafka Event Bus (3-Broker Cluster)",
@@ -245,7 +245,7 @@
     {
       "id": "oci-oke-cluster",
       "type": "custom",
-      "position": { "x": 300, "y": 650 },
+      "position": { "x": 450, "y": 760 },
       "data": {
         "id": "oci-oke-cluster",
         "label": "OCI Kubernetes Engine (OKE)",
@@ -263,7 +263,7 @@
     {
       "id": "oci-genai-service",
       "type": "custom",
-      "position": { "x": 700, "y": 650 },
+      "position": { "x": 1050, "y": 760 },
       "data": {
         "id": "oci-genai-service",
         "label": "OCI Generative AI (Cohere Command R+)",

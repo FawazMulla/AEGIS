@@ -70,14 +70,19 @@ export const GraphCanvas: React.FC = () => {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         fitView
-        minZoom={0.2}
+        fitViewOptions={{
+          padding: 0.18,
+          minZoom: 0.5,
+          maxZoom: 1.4,
+        }}
+        minZoom={0.25}
         maxZoom={2.5}
-        defaultViewport={{ x: 0, y: 0, zoom: 0.85 }}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
         className="touch-none"
       >
         <Background
           variant={BackgroundVariant.Dots}
-          gap={24}
+          gap={28}
           size={1.2}
           color="hsl(var(--muted-foreground) / 0.15)"
         />

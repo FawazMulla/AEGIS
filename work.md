@@ -81,3 +81,16 @@
 - Added multi-stage staggered particle waves and SVG drop-shadow filter effects for high-contrast cyber glow.
 - Added live ingress and egress handle ping halos (`animate-ping`) on all 4 connection points of `CustomNode.tsx`, visual heartbeat status pulse dots, and dynamic telemetry status rings.
 - Validated with Vitest test suite (100% pass) and production build (`npm run build`).
+
+---
+
+### Task #8 (Spatial Studio & Canvas Relaxation) — Canvas De-Cluttering & Spacious Multi-Mode Layout
+
+**Date**: 27th September 2026 | **Time**: 18:25 IST
+
+**Key Actions**:
+- Expanded 54-node coordinate schema in `seedGraph.json` across a relaxed $1600 \times 800$ canvas grid with generous inter-layer ($280\text{px}$) and intra-layer ($110\text{px}$) spacing.
+- Redesigned `InteractiveStudio.tsx` with a high-efficiency 70/30 (8-column / 4-column) responsive split, dynamic HUD toggles, and full 100% canvas mode with a floating, collapsible intelligence slide-over dock.
+- Optimized `fitViewOptions` in `GraphCanvas.tsx` (`padding: 0.15`, `minZoom: 0.2`, `maxZoom: 1.5`, `defaultViewport: { zoom: 0.85 }`) to eliminate cramped node shrinkage.
+- Validated clean TypeScript compilation (`npx tsc --noEmit`), 100% Vitest unit test pass rate (17 suites, 21 tests), and Vite production bundle.
+
