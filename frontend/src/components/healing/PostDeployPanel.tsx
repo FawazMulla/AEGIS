@@ -53,11 +53,11 @@ export const PostDeployPanel: React.FC = () => {
   return (
     <div className="flex flex-col gap-4 h-full overflow-y-auto pr-1">
       {/* Chaos Injection Control Card */}
-      <Card className="bg-card/90 border-border backdrop-blur-md shadow-md">
+      <Card className="bg-card border border-border rounded-lg shadow-sm">
         <CardHeader className="p-4 pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-destructive/10 border border-destructive/20">
+              <div className="p-1.5 rounded-md bg-secondary border border-border">
                 <Flame className="h-4 w-4 text-destructive" />
               </div>
               <div>
@@ -137,7 +137,7 @@ export const PostDeployPanel: React.FC = () => {
               variant="destructive"
               onClick={handleInjectChaos}
               disabled={isInjectingChaos || isStreaming}
-              className="flex-1 font-heading font-bold text-xs h-10 shadow-sm"
+              className="flex-1 font-heading font-semibold text-xs h-9 shadow-xs"
             >
               <Flame className="h-4 w-4 mr-1.5" />
               {isInjectingChaos ? "Injecting Fault..." : "Inject Chaos Anomaly"}
@@ -147,7 +147,7 @@ export const PostDeployPanel: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={resetIncident}
-                className="h-10 text-xs"
+                className="h-9 text-xs"
               >
                 <RotateCcw className="h-3 w-3 mr-1" />
                 Reset
@@ -159,7 +159,7 @@ export const PostDeployPanel: React.FC = () => {
 
       {/* Autonomous Healing SSE Stream & Timeline Card */}
       {activeSession && (
-        <Card className="bg-card/90 border-border backdrop-blur-md shadow-md animate-in fade-in-50 duration-300">
+        <Card className="bg-card border border-border rounded-lg shadow-sm animate-in fade-in-50 duration-200">
           <CardHeader className="p-4 pb-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -174,9 +174,9 @@ export const PostDeployPanel: React.FC = () => {
                     ? 'default'
                     : activeSession.stage === 'FAILED'
                     ? 'destructive'
-                    : 'tertiary'
+                    : 'secondary'
                 }
-                className="text-xs font-heading font-bold animate-pulse"
+                className="text-xs font-heading font-semibold"
               >
                 {activeSession.stage === 'COMMITTED' ? 'INCIDENT RESOLVED' : activeSession.stage}
               </Badge>
@@ -188,22 +188,22 @@ export const PostDeployPanel: React.FC = () => {
 
           <CardContent className="p-4 pt-2 space-y-3">
             {/* Live SSE Stream Step Timeline */}
-            <div className="space-y-2.5 max-h-64 overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {activeSession.steps.map((step, idx) => (
                 <div
                   key={idx}
                   className={cn(
-                    "p-2.5 rounded-xl border text-xs transition-all duration-300",
+                    "p-2.5 rounded-lg border text-xs transition-colors",
                     step.stage === 'COMMITTED'
-                      ? "bg-emerald-950/20 border-emerald-800/40 text-emerald-300"
+                      ? "bg-secondary/60 border-emerald-500/40 text-foreground"
                       : step.stage === 'ANOMALY_DETECTED'
-                      ? "bg-destructive/10 border-destructive/30 text-rose-300"
-                      : "bg-muted/30 border-border/50 text-foreground"
+                      ? "bg-destructive/10 border-destructive/30 text-foreground"
+                      : "bg-secondary/30 border-border text-foreground"
                   )}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-1.5 font-heading font-bold">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary/20 text-primary text-[10px] font-mono">
+                    <div className="flex items-center gap-1.5 font-heading font-semibold">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-mono">
                         {step.stepIndex}
                       </span>
                       <span>{step.title}</span>
@@ -238,15 +238,15 @@ export const PostDeployPanel: React.FC = () => {
                       key={fix.fixId}
                       onClick={() => selectCandidateFix(fix)}
                       className={cn(
-                        "p-3 rounded-xl border transition-all cursor-pointer",
+                        "p-3 rounded-lg border transition-all cursor-pointer",
                         selectedCandidateFix?.fixId === fix.fixId
-                          ? "bg-primary/10 border-primary shadow-xs ring-1 ring-primary"
-                          : "bg-muted/30 border-border/60 hover:bg-muted/60"
+                          ? "bg-secondary/80 border-primary shadow-xs"
+                          : "bg-secondary/30 border-border hover:bg-secondary/60"
                       )}
                     >
                       <div className="flex items-center justify-between gap-2 mb-1.5">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-xs font-bold text-foreground">
+                          <span className="font-mono text-xs font-semibold text-foreground">
                             {fix.name}
                           </span>
                           <Badge variant="outline" className="text-[9px]">
@@ -255,7 +255,7 @@ export const PostDeployPanel: React.FC = () => {
                         </div>
                         <Badge
                           variant={fix.safetyScore >= 85 ? 'default' : 'secondary'}
-                          className="text-xs font-mono font-bold"
+                          className="text-xs font-mono font-semibold"
                         >
                           Safety: {fix.safetyScore}/100
                         </Badge>
@@ -280,7 +280,7 @@ export const PostDeployPanel: React.FC = () => {
                               e.stopPropagation();
                               handleApplyFix(fix);
                             }}
-                            className="h-7 text-xs bg-primary text-primary-foreground font-heading font-bold"
+                            className="h-7 text-xs bg-primary text-primary-foreground font-heading font-semibold"
                           >
                             <Play className="h-3 w-3 mr-1" /> Execute This Fix
                           </Button>

@@ -28,15 +28,49 @@ export const CustomEdge = memo(({
 
   const isImpacted = edgeData?.isImpacted;
   const isDegraded = edgeData?.isDegraded;
+  const protocol = edgeData?.protocol?.toUpperCase() || 'HTTP';
+  const edgeType = edgeData?.type || 'CALLS';
 
-  // Dynamic beat colors based on state
-  const beatColor = isDegraded
-    ? '#f43f5e' // Crimson red for degraded / chaos
-    : isImpacted
-    ? '#c084fc' // Electric purple for blast radius simulation
-    : '#22d3ee'; // Cyber cyan for normal healthy live flow
+  // Dynamic colors based on protocol and state
+  const getEdgeStyle = () => {
+    if (isDegraded) {
+      return {
+        stroke: "!stroke-destructive !stroke-[2.5px] stroke-dasharray-4",
+        color: '#f43f5e',
+        speed: '1.2s',
+      };
+    }
+    if (isImpacted) {
+      return {
+        stroke: "!stroke-purple-500 !stroke-[2.5px] stroke-dasharray-4",
+        color: '#c084fc',
+        speed: '1.5s',
+      };
+    }
+    if (edgeType === 'DEPENDS_ON' || protocol === 'DATABASE' || protocol === 'KAFKA') {
+      return {
+        stroke: "!stroke-amber-500/60 hover:!stroke-amber-400 !stroke-[2px] stroke-dasharray-2",
+        color: '#fbbf24',
+        speed: '2.8s',
+      };
+    }
+    if (protocol === 'GRPC') {
+      return {
+        stroke: "!stroke-indigo-500/60 hover:!stroke-indigo-400 !stroke-[1.8px]",
+        color: '#818cf8',
+        speed: '2.2s',
+      };
+    }
+    return {
+      stroke: "!stroke-sky-500/50 hover:!stroke-sky-400 !stroke-[1.8px]",
+      color: '#38bdf8',
+      speed: '2.5s',
+    };
+  };
 
-  const beatSpeed = isDegraded ? "1.2s" : isImpacted ? "1.6s" : "2.5s";
+  const styleConfig = getEdgeStyle();
+  const beatColor = styleConfig.color;
+  const beatSpeed = styleConfig.speed;
 
   return (
     <>
@@ -45,12 +79,8 @@ export const CustomEdge = memo(({
         path={edgePath}
         className={cn(
           "transition-all duration-300",
-          isImpacted
-            ? "!stroke-purple-500/80 !stroke-[2px] stroke-dasharray-4"
-            : isDegraded
-            ? "!stroke-destructive !stroke-[2px] stroke-dasharray-4"
-            : "!stroke-cyan-500/30 hover:!stroke-cyan-400 !stroke-[1.5px]",
-          selected && "!stroke-primary !stroke-[2.5px]"
+          styleConfig.stroke,
+          selected && "!stroke-primary !stroke-[3px]"
         )}
       />
 

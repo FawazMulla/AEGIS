@@ -29,7 +29,6 @@ import {
   Database,
   Cloud,
   CheckCircle2,
-  Radio,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -48,16 +47,16 @@ const telemetryTrendData = [
 ];
 
 const mttrComparisonData = [
-  { metric: 'Manual SRE Ops', time: 2700, fill: '#f43f5e' },
-  { metric: 'Rule-Based Runbooks', time: 720, fill: '#f59e0b' },
-  { metric: 'AEGIS Autopilot (Alg 1-5)', time: 38, fill: '#06b6d4' },
+  { metric: 'Manual SRE Ops', time: 2700, fill: '#475569' },
+  { metric: 'Rule-Based Runbooks', time: 720, fill: '#64748b' },
+  { metric: 'AEGIS Autopilot', time: 38, fill: '#3b82f6' },
 ];
 
 const incidentDistribution = [
-  { name: 'DB Pool Exhaustion', value: 42, color: '#06b6d4' },
-  { name: 'Breaking API Contract', value: 28, color: '#a855f7' },
-  { name: 'Pod Memory Pressure', value: 18, color: '#f59e0b' },
-  { name: 'Network Partition', value: 12, color: '#10b981' },
+  { name: 'DB Pool Exhaustion', value: 42, color: '#3b82f6' },
+  { name: 'Breaking API Contract', value: 28, color: '#818cf8' },
+  { name: 'Pod Memory Pressure', value: 18, color: '#64748b' },
+  { name: 'Network Partition', value: 12, color: '#475569' },
 ];
 
 export interface OverviewDashboardProps {
@@ -99,26 +98,27 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-6 overflow-y-auto pb-12">
       {/* 1. Executive Summary & Status Hero */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-card via-card/90 to-primary/10 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-5 rounded-lg bg-card border border-border">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h2 className="font-heading text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            <h2 className="font-heading text-lg sm:text-xl font-bold tracking-tight text-foreground">
               Mission Control Overview
             </h2>
-            <Badge variant="default" className="text-xs bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
-              <Radio className="h-3 w-3 mr-1 animate-pulse" /> LIVE TELEMETRY
+            <Badge variant="secondary" className="text-[10px] font-mono">
+              54 Nodes Monitored
             </Badge>
           </div>
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl">
-            Real-time status of 54 microservices, databases, and cloud infrastructure nodes monitored by AEGIS graph reasoning and Cohere Command R+ on Oracle Cloud OCI.
+          <p className="text-xs text-muted-foreground max-w-2xl">
+            Real-time telemetry and graph reasoning across 54 microservices, databases, and infrastructure dependencies.
           </p>
         </div>
 
         {/* Quick Actions */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             onClick={handleQuickSim}
-            className="h-9 px-3.5 text-xs font-heading font-bold bg-tertiary text-tertiary-foreground hover:bg-tertiary/90 shadow-sm"
+            size="sm"
+            className="h-8 px-3 text-xs font-heading font-semibold"
           >
             <Sparkles className="h-3.5 w-3.5 mr-1.5" />
             Test Pre-Ship PR
@@ -126,8 +126,9 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
 
           <Button
             onClick={handleQuickChaos}
-            variant="destructive"
-            className="h-9 px-3.5 text-xs font-heading font-bold shadow-sm"
+            variant="outline"
+            size="sm"
+            className="h-8 px-3 text-xs font-heading font-semibold"
           >
             <Flame className="h-3.5 w-3.5 mr-1.5" />
             Inject Chaos Fault
@@ -136,9 +137,10 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
           <Button
             onClick={onNavigateToGraph}
             variant="outline"
-            className="h-9 px-3.5 text-xs font-heading font-bold"
+            size="sm"
+            className="h-8 px-3 text-xs font-heading font-semibold"
           >
-            View Full Topology
+            View Topology
             <ArrowUpRight className="h-3.5 w-3.5 ml-1" />
           </Button>
         </div>
@@ -147,12 +149,12 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
       {/* 2. Primary Telemetry Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Latency & Anomaly Signal Trend (7 cols) */}
-        <Card className="lg:col-span-7 bg-card/90 border-border backdrop-blur-md shadow-md p-4">
+        <Card className="lg:col-span-7 bg-card border border-border rounded-lg shadow-sm p-4">
           <CardHeader className="p-0 pb-3">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-sm sm:text-base flex items-center gap-2">
-                  <Activity className="h-4 w-4 text-sky-400" />
+                  <Activity className="h-4 w-4 text-primary" />
                   <span>Real-Time P99 Latency & Anomaly Signal (ms)</span>
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -169,7 +171,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               <AreaChart data={telemetryTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="p99Grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                   </linearGradient>
                 </defs>
@@ -179,7 +181,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   contentStyle={{
                     backgroundColor: 'hsl(var(--card))',
                     borderColor: 'hsl(var(--border))',
-                    borderRadius: '12px',
+                    borderRadius: '8px',
                     fontSize: '12px',
                   }}
                 />
@@ -187,7 +189,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   type="monotone"
                   dataKey="p99"
                   stroke="hsl(var(--primary))"
-                  strokeWidth={2.5}
+                  strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#p99Grad)"
                   name="P99 Latency (ms)"
@@ -198,12 +200,12 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
         </Card>
 
         {/* MTTR Benchmark Comparison (5 cols) */}
-        <Card className="lg:col-span-5 bg-card/90 border-border backdrop-blur-md shadow-md p-4">
+        <Card className="lg:col-span-5 bg-card border border-border rounded-lg shadow-sm p-4">
           <CardHeader className="p-0 pb-3">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-sm sm:text-base flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-emerald-400" />
+                  <Zap className="h-4 w-4 text-primary" />
                   <span>MTTR Benchmark Comparison</span>
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -225,11 +227,11 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   contentStyle={{
                     backgroundColor: 'hsl(var(--card))',
                     borderColor: 'hsl(var(--border))',
-                    borderRadius: '12px',
+                    borderRadius: '8px',
                     fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="time" radius={[0, 8, 8, 0]}>
+                <Bar dataKey="time" radius={[0, 4, 4, 0]}>
                   {mttrComparisonData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
@@ -241,7 +243,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
       </div>
 
       {/* 3. Service Fleet Health Matrix Grid */}
-      <Card className="bg-card/90 border-border backdrop-blur-md shadow-md">
+      <Card className="bg-card border border-border rounded-lg shadow-sm">
         <CardHeader className="p-4 pb-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -261,10 +263,10 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   key={layer}
                   onClick={() => setSelectedLayer(layer)}
                   className={cn(
-                    "px-2.5 py-1 text-xs font-heading font-semibold rounded-lg transition-all active:scale-95",
+                    "px-2.5 py-1 text-xs font-heading font-medium rounded-md transition-all active:scale-95",
                     selectedLayer === layer
                       ? "bg-primary text-primary-foreground shadow-xs"
-                      : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
+                      : "bg-secondary/60 text-muted-foreground hover:bg-secondary hover:text-foreground"
                   )}
                 >
                   {layer.toUpperCase()}
@@ -275,7 +277,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
         </CardHeader>
 
         <CardContent className="p-4 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
             {filteredNodes.map((node) => {
               const data = node.data;
               const isCritical = data.status === 'critical' || data.isRootCause;
@@ -289,29 +291,29 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                     onNavigateToGraph();
                   }}
                   className={cn(
-                    "p-3 rounded-xl border transition-all cursor-pointer hover:scale-[1.02] shadow-xs",
+                    "p-3 rounded-lg border transition-all cursor-pointer hover:border-primary/50 shadow-xs",
                     isCritical
-                      ? "bg-destructive/10 border-destructive/80 ring-1 ring-destructive"
+                      ? "bg-destructive/10 border-destructive/60"
                       : isSimulatedRisk
-                      ? "bg-purple-950/20 border-purple-800/80 ring-1 ring-purple-500"
-                      : "bg-muted/30 border-border/60 hover:border-primary/50 hover:bg-muted/50"
+                      ? "bg-secondary/70 border-border"
+                      : "bg-card border-border hover:bg-secondary/30"
                   )}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2 truncate">
                       {data.layer === 'databases' ? (
-                        <Database className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+                        <Database className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       ) : data.layer === 'cloud' ? (
-                        <Cloud className="h-3.5 w-3.5 text-purple-400 shrink-0" />
+                        <Cloud className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       ) : (
-                        <Server className="h-3.5 w-3.5 text-sky-400 shrink-0" />
+                        <Server className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       )}
-                      <span className="font-heading font-bold text-xs truncate" title={data.label}>
+                      <span className="font-heading font-semibold text-xs truncate text-foreground" title={data.label}>
                         {data.label}
                       </span>
                     </div>
                     <Badge
-                      variant={isCritical ? 'destructive' : isSimulatedRisk ? 'tertiary' : 'secondary'}
+                      variant={isCritical ? 'destructive' : isSimulatedRisk ? 'secondary' : 'outline'}
                       className="text-[9px] px-1.5 py-0 uppercase"
                     >
                       {data.status}
@@ -342,10 +344,10 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
       {/* 4. Incident Distribution & RCA Knowledge Memory Log */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* RCA Failure Distribution (5 cols) */}
-        <Card className="lg:col-span-5 bg-card/90 border-border backdrop-blur-md shadow-md p-4">
+        <Card className="lg:col-span-5 bg-card border border-border rounded-lg shadow-sm p-4">
           <CardHeader className="p-0 pb-3">
             <CardTitle className="text-sm sm:text-base flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-tertiary" />
+              <ShieldCheck className="h-4 w-4 text-primary" />
               <span>Causal Anomaly Classification</span>
             </CardTitle>
             <CardDescription className="text-xs">
@@ -373,7 +375,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
                   contentStyle={{
                     backgroundColor: 'hsl(var(--card))',
                     borderColor: 'hsl(var(--border))',
-                    borderRadius: '12px',
+                    borderRadius: '8px',
                     fontSize: '12px',
                   }}
                 />
@@ -385,14 +387,14 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               <div key={item.name} className="flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
                 <span className="text-muted-foreground truncate">{item.name}</span>
-                <span className="font-mono font-bold ml-auto">{item.value}%</span>
+                <span className="font-mono font-bold ml-auto text-foreground">{item.value}%</span>
               </div>
             ))}
           </div>
         </Card>
 
         {/* Live Incident & Resolution Memory Ledger (7 cols) */}
-        <Card className="lg:col-span-7 bg-card/90 border-border backdrop-blur-md shadow-md p-4">
+        <Card className="lg:col-span-7 bg-card border border-border rounded-lg shadow-sm p-4">
           <CardHeader className="p-0 pb-3">
             <div className="flex items-center justify-between">
               <div>
@@ -411,9 +413,9 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
           </CardHeader>
 
           <CardContent className="p-0 pt-1 space-y-2.5 max-h-64 overflow-y-auto pr-1">
-            <div className="p-3 rounded-xl bg-muted/30 border border-border/50 text-xs space-y-1">
+            <div className="p-3 rounded-lg bg-secondary/40 border border-border text-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-foreground flex items-center gap-1.5">
+                <span className="font-mono font-semibold text-foreground flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                   INC-9104: PaymentService DB Pool Exhaustion
                 </span>
@@ -424,9 +426,9 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-muted/30 border border-border/50 text-xs space-y-1">
+            <div className="p-3 rounded-lg bg-secondary/40 border border-border text-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-foreground flex items-center gap-1.5">
+                <span className="font-mono font-semibold text-foreground flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                   INC-8942: OrderService Cascading Latency Spike
                 </span>
@@ -437,9 +439,9 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-muted/30 border border-border/50 text-xs space-y-1">
+            <div className="p-3 rounded-lg bg-secondary/40 border border-border text-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-foreground flex items-center gap-1.5">
+                <span className="font-mono font-semibold text-foreground flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                   PRE-7721: Blocked Breaking Stripe Schema PR-1082
                 </span>

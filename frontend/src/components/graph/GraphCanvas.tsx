@@ -15,7 +15,6 @@ import { useGraphStore } from '@/stores/useGraphStore';
 import { CustomNode } from './CustomNode';
 import { CustomEdge } from './CustomEdge';
 import { GraphControls } from './GraphControls';
-import { NodeDetailModal } from './NodeDetailModal';
 import { GraphNodeData } from '@/types/graph';
 
 export const GraphCanvas: React.FC = () => {
@@ -57,8 +56,17 @@ export const GraphCanvas: React.FC = () => {
     [selectNode]
   );
 
+  const getNodeMiniMapColor = useCallback((n: Node) => {
+    const data = n.data as unknown as GraphNodeData;
+    if (!data) return '#3b82f6';
+    if (data.isRootCause || data.status === 'critical') return '#f43f5e';
+    if (data.status === 'healing') return '#3b82f6';
+    if (data.isBlastRadius || data.status === 'simulated-risk') return '#818cf8';
+    return '#10b981';
+  }, []);
+
   return (
-    <div className="relative w-full h-full min-h-[500px] rounded-2xl overflow-hidden border border-border bg-card/60 backdrop-blur-md shadow-lg">
+    <div className="relative w-full h-full min-h-[500px] rounded-lg overflow-hidden border border-border bg-card/40 backdrop-blur-sm shadow-sm">
       <GraphControls />
 
       <ReactFlow
@@ -83,26 +91,34 @@ export const GraphCanvas: React.FC = () => {
         <Background
           variant={BackgroundVariant.Dots}
           gap={28}
-          size={1.2}
-          color="hsl(var(--muted-foreground) / 0.15)"
+          size={1}
+          color="hsl(var(--muted-foreground) / 0.12)"
         />
         <Controls
-          className="!bg-card/90 !border-border !rounded-xl !shadow-md [&>button]:!bg-card [&>button]:!border-border [&>button]:!text-foreground"
+          className="!bg-card !border-border !rounded-md !shadow-sm [&>button]:!bg-card [&>button]:!border-border [&>button]:!text-foreground"
         />
-        <MiniMap
-          nodeColor={(n) => {
-            const status = (n.data as unknown as GraphNodeData)?.status;
-            if (status === 'critical') return 'hsl(var(--destructive))';
-            if (status === 'simulated-risk') return 'hsl(var(--tertiary))';
-            if (status === 'healing') return 'hsl(var(--primary))';
-            return 'hsl(var(--success))';
-          }}
-          maskColor="hsl(var(--background) / 0.8)"
-          className="!bg-card/90 !border-border !rounded-xl !shadow-md !overflow-hidden hidden sm:block"
-        />
-      </ReactFlow>
+        <div className="absolute bottom-3 right-3 z-10 hidden sm:flex flex-col items-end pointer-events-none">
+          {/* Radar HUD Header Badge */}
+          <div className="mb-1.5 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-card border border-border text-[9px] font-mono text-muted-foreground shadow-xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span className="font-semibold text-foreground">TOPOLOGY RADAR</span>
+            <span className="text-muted-foreground">54N</span>
+          </div>
 
-      <NodeDetailModal />
+          <div className="pointer-events-auto">
+            <MiniMap
+              nodeColor={getNodeMiniMapColor}
+              nodeStrokeColor="rgba(255, 255, 255, 0.25)"
+              nodeStrokeWidth={1}
+              nodeBorderRadius={4}
+              zoomable
+              pannable
+              maskColor="hsl(var(--background) / 0.75)"
+              className="!relative !bottom-0 !right-0 !m-0 !w-[180px] !h-[120px]"
+            />
+          </div>
+        </div>
+      </ReactFlow>
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const KPIBar: React.FC = () => {
       value: `${kpis.mttdSeconds}s`,
       target: 'Target: < 5s',
       status: kpis.mttdSeconds < 5 ? 'success' : 'warning',
-      icon: <Timer className="h-4 w-4 text-sky-400" />,
+      icon: <Timer className="h-4 w-4 text-foreground/80" />,
       subtext: 'eBPF real-time probe',
     },
     {
@@ -23,7 +23,7 @@ export const KPIBar: React.FC = () => {
       value: `${kpis.mttrSeconds}s`,
       target: 'Target: < 45s',
       status: kpis.mttrSeconds < 45 ? 'success' : 'warning',
-      icon: <Zap className="h-4 w-4 text-emerald-400" />,
+      icon: <Zap className="h-4 w-4 text-foreground/80" />,
       subtext: '8-step autonomous loop',
     },
     {
@@ -32,7 +32,7 @@ export const KPIBar: React.FC = () => {
       value: `${kpis.changeFailureRatePercent}%`,
       target: 'Industry Avg: 15%',
       status: 'success',
-      icon: <AlertTriangle className="h-4 w-4 text-amber-400" />,
+      icon: <AlertTriangle className="h-4 w-4 text-foreground/80" />,
       subtext: 'Pre-ship guard prevented',
     },
     {
@@ -41,7 +41,7 @@ export const KPIBar: React.FC = () => {
       value: `${kpis.graphQueryLatencyMs}ms`,
       target: 'Target: < 12ms',
       status: 'success',
-      icon: <Network className="h-4 w-4 text-purple-400" />,
+      icon: <Network className="h-4 w-4 text-foreground/80" />,
       subtext: '54 nodes • 142 edges',
     },
     {
@@ -50,7 +50,7 @@ export const KPIBar: React.FC = () => {
       value: `${kpis.autonomousHealSuccessRate}%`,
       target: `${kpis.totalIncidentsHealed} Healed`,
       status: 'success',
-      icon: <ShieldCheck className="h-4 w-4 text-primary" />,
+      icon: <ShieldCheck className="h-4 w-4 text-foreground/80" />,
       subtext: 'Zero-downtime fixes',
     },
   ];

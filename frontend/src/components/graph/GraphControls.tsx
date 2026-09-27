@@ -32,14 +32,14 @@ export const GraphControls: React.FC = () => {
   return (
     <div className="absolute top-4 left-4 right-4 z-10 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
       {/* Search and Filters Container */}
-      <div className="flex flex-wrap items-center gap-2 pointer-events-auto bg-card/90 backdrop-blur-md p-2 rounded-2xl border border-border shadow-lg">
+      <div className="flex flex-wrap items-center gap-2 pointer-events-auto bg-card/95 p-2 rounded-lg border border-border shadow-md">
         <div className="relative w-48 sm:w-60">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
           <Input
             placeholder="Search 54 nodes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-8 pl-8 text-xs bg-background/80"
+            className="h-8 pl-8 text-xs bg-secondary/50"
           />
         </div>
 
@@ -51,10 +51,10 @@ export const GraphControls: React.FC = () => {
               key={layer.id}
               onClick={() => setLayerFilter(layer.id)}
               className={cn(
-                "px-2.5 py-1 text-[11px] font-heading font-semibold rounded-lg transition-all active:scale-95",
+                "px-2.5 py-1 text-[11px] font-heading font-medium rounded-md transition-all active:scale-95",
                 activeLayerFilter === layer.id
-                  ? "bg-primary text-primary-foreground shadow-xs"
-                  : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-xs font-semibold"
+                  : "bg-secondary/60 text-muted-foreground hover:bg-secondary hover:text-foreground"
               )}
             >
               {layer.label}
@@ -64,7 +64,7 @@ export const GraphControls: React.FC = () => {
       </div>
 
       {/* Status & Reset Action */}
-      <div className="flex items-center gap-2 pointer-events-auto bg-card/90 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-border shadow-lg">
+      <div className="flex items-center gap-2 pointer-events-auto bg-card/95 px-3 py-1.5 rounded-lg border border-border shadow-md">
         <Badge variant={abnormalCount > 0 ? "destructive" : "secondary"} className="text-xs">
           {abnormalCount > 0 ? `${abnormalCount} Degraded` : `${healthyCount}/${nodes.length} Nodes Healthy`}
         </Badge>

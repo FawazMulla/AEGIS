@@ -78,8 +78,8 @@ export default {
         "2xl": "calc(var(--radius) + 4px)",
       },
       fontFamily: {
-        heading: ["var(--font-quicksand)", "Quicksand", "sans-serif"],
-        sans: ["var(--font-nunito)", "Nunito Sans", "sans-serif"],
+        heading: ["var(--font-heading)", "Plus Jakarta Sans", "Inter", "sans-serif"],
+        sans: ["var(--font-sans)", "Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
         devanagari: ["var(--font-devanagari)", "Noto Sans Devanagari", "sans-serif"],
         urdu: ["var(--font-urdu)", "Noto Nastaliq Urdu", "Gulzar", "sans-serif"],

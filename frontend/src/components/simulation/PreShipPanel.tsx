@@ -50,12 +50,12 @@ export const PreShipPanel: React.FC = () => {
   return (
     <div className="flex flex-col gap-4 h-full overflow-y-auto pr-1">
       {/* Simulation Trigger & Configuration Card */}
-      <Card className="bg-card/90 border-border backdrop-blur-md shadow-md">
+      <Card className="bg-card border border-border rounded-lg shadow-sm">
         <CardHeader className="p-4 pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-tertiary/10 border border-tertiary/20">
-                <GitPullRequest className="h-4 w-4 text-tertiary" />
+              <div className="p-1.5 rounded-md bg-secondary border border-border">
+                <GitPullRequest className="h-4 w-4 text-foreground" />
               </div>
               <div>
                 <CardTitle className="text-sm sm:text-base">Pre-Deployment Risk Guard</CardTitle>
@@ -96,7 +96,7 @@ export const PreShipPanel: React.FC = () => {
 
           {/* PR Details Summary Box */}
           {selectedPR && (
-            <div className="p-3 rounded-xl bg-muted/40 border border-border/70 text-xs space-y-2">
+            <div className="p-3 rounded-lg bg-secondary/40 border border-border text-xs space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground font-mono text-[11px]">
                   Target: <strong className="text-foreground">{selectedPR.targetService}</strong>
@@ -136,7 +136,7 @@ export const PreShipPanel: React.FC = () => {
             <Button
               onClick={handleAnalyze}
               disabled={isAnalyzing}
-              className="flex-1 bg-primary text-primary-foreground font-heading font-bold text-xs h-10 shadow-sm"
+              className="flex-1 bg-primary text-primary-foreground font-heading font-semibold text-xs h-9 shadow-xs"
             >
               <Sparkles className={cn("h-4 w-4 mr-1.5", isAnalyzing && "animate-spin")} />
               {isAnalyzing ? "Computing Graph BFS..." : "Run Blast Radius Analysis"}
@@ -146,7 +146,7 @@ export const PreShipPanel: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={clearSimulation}
-                className="h-10 text-xs"
+                className="h-9 text-xs"
               >
                 Clear
               </Button>
@@ -157,7 +157,7 @@ export const PreShipPanel: React.FC = () => {
 
       {/* Simulation Result Card */}
       {activeResult && (
-        <Card className="bg-card/90 border-border backdrop-blur-md shadow-md animate-in fade-in-50 duration-300">
+        <Card className="bg-card border border-border rounded-lg shadow-sm animate-in fade-in-50 duration-200">
           <CardHeader className="p-4 pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm sm:text-base flex items-center gap-2">
@@ -184,7 +184,7 @@ export const PreShipPanel: React.FC = () => {
 
           <CardContent className="p-4 pt-2 space-y-3.5">
             {/* Overall Score Gauge */}
-            <div className="p-3.5 rounded-xl bg-muted/40 border border-border/70 flex items-center justify-between">
+            <div className="p-3.5 rounded-lg bg-secondary/40 border border-border flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase font-mono text-muted-foreground">
                   COMPOSITE RISK SCORE (R)
@@ -281,7 +281,7 @@ export const PreShipPanel: React.FC = () => {
                 {activeResult.impactedNodes.map((n) => (
                   <div
                     key={n.nodeId}
-                    className="flex items-center justify-between p-2 rounded-lg bg-muted/30 border border-border/40 text-xs"
+                    className="flex items-center justify-between p-2 rounded-lg bg-secondary/30 border border-border/40 text-xs"
                   >
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-semibold text-foreground">{n.serviceName}</span>
@@ -305,14 +305,14 @@ export const PreShipPanel: React.FC = () => {
 
             {/* Mitigation Recommendations */}
             {activeResult.mitigationRecommendations.length > 0 && (
-              <div className="p-3 rounded-xl bg-amber-950/20 border border-amber-800/40 text-xs space-y-1.5">
-                <h4 className="font-heading font-bold text-amber-300 flex items-center gap-1.5 text-[11px]">
-                  <Lightbulb className="h-3.5 w-3.5" /> Actionable Mitigation Recommendations
+              <div className="p-3 rounded-lg bg-secondary/50 border border-border text-xs space-y-1.5">
+                <h4 className="font-heading font-semibold text-foreground flex items-center gap-1.5 text-[11px]">
+                  <Lightbulb className="h-3.5 w-3.5 text-primary" /> Actionable Mitigation Recommendations
                 </h4>
                 <ul className="space-y-1 text-muted-foreground text-[11px]">
                   {activeResult.mitigationRecommendations.map((rec, idx) => (
                     <li key={idx} className="flex items-start gap-1.5">
-                      <ArrowRight className="h-3 w-3 text-amber-400 mt-0.5 shrink-0" />
+                      <ArrowRight className="h-3 w-3 text-primary mt-0.5 shrink-0" />
                       <span>{rec}</span>
                     </li>
                   ))}
