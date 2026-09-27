@@ -1,0 +1,47 @@
+[
+  {
+    "prId": "PR-1082",
+    "title": "feat(payments): Migrate stripe-v2 to stripe-v3 contract with strict idempotency key",
+    "author": "sarah.chen@aegis.internal",
+    "targetService": "payment-service",
+    "branch": "feat/payment-stripe-v3",
+    "changedFilesCount": 14,
+    "linesAdded": 482,
+    "linesDeleted": 139,
+    "hasBreakingApiChange": true,
+    "hasSchemaChange": true,
+    "diffSummary": "Removes deprecated /v1/charge endpoint in favor of /v2/payment_intents. Requires non-null idempotency_key header in all inbound requests.",
+    "targetEndpoint": "POST /v2/payment_intents",
+    "apiDiffPayload": "BREAKING: Removed endpoint POST /v1/charge\nADDED: Required header 'X-Idempotency-Key' in POST /v2/payment_intents\nCHANGED: Field 'amount' type from float to integer (cents)"
+  },
+  {
+    "prId": "PR-1083",
+    "title": "refactor(notifications): Optimize dead-letter queue retry exponential backoff",
+    "author": "alex.kumar@aegis.internal",
+    "targetService": "notification-service",
+    "branch": "chore/notif-dlq-backoff",
+    "changedFilesCount": 3,
+    "linesAdded": 68,
+    "linesDeleted": 24,
+    "hasBreakingApiChange": false,
+    "hasSchemaChange": false,
+    "diffSummary": "Internal worker refactoring. Implements jittered exponential backoff for failed SMS/Email deliveries without modifying public interfaces.",
+    "targetEndpoint": "CONSUME kafka.notifications.dlq",
+    "apiDiffPayload": "NO BREAKING CHANGES. Internal message consumption retry policy update."
+  },
+  {
+    "prId": "PR-1084",
+    "title": "feat(orders): Call analytics synchronously for fraud validation hook",
+    "author": "marcus.vance@aegis.internal",
+    "targetService": "order-service",
+    "branch": "feat/sync-fraud-check",
+    "changedFilesCount": 8,
+    "linesAdded": 210,
+    "linesDeleted": 45,
+    "hasBreakingApiChange": false,
+    "hasSchemaChange": false,
+    "diffSummary": "Introduces direct synchronous gRPC call from OrderService to AnalyticsWorker before order commit, which creates a circular dependency through Kafka.",
+    "targetEndpoint": "POST /api/v1/orders/checkout",
+    "apiDiffPayload": "WARNING: Potential circular dependency detected in call chain (Order -> Analytics -> Kafka -> Order)."
+  }
+]

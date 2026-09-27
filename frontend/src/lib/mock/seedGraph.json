@@ -1,0 +1,303 @@
+{
+  "metadata": {
+    "totalNodes": 54,
+    "totalEdges": 142,
+    "healthyCount": 54,
+    "warningCount": 0,
+    "criticalCount": 0,
+    "lastUpdated": "2026-09-27T15:50:00Z"
+  },
+  "nodes": [
+    {
+      "id": "api-gateway",
+      "type": "custom",
+      "position": { "x": 500, "y": 50 },
+      "data": {
+        "id": "api-gateway",
+        "label": "API Gateway (Kong / OCI Ingress)",
+        "layer": "gateway",
+        "type": "APIGateway",
+        "status": "healthy",
+        "version": "v3.4.1",
+        "responseTimeMs": 14,
+        "errorRate": 0.01,
+        "cpuUsage": 28,
+        "memoryUsage": 42,
+        "description": "Public entrance proxy with TLS termination, rate limiting, and JWT validation."
+      }
+    },
+    {
+      "id": "auth-service",
+      "type": "custom",
+      "position": { "x": 150, "y": 200 },
+      "data": {
+        "id": "auth-service",
+        "label": "Auth Service (OAuth2 / JWT)",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v2.1.0",
+        "responseTimeMs": 18,
+        "errorRate": 0.02,
+        "cpuUsage": 35,
+        "memoryUsage": 48,
+        "description": "Authentication, authorization, and RBAC token generation."
+      }
+    },
+    {
+      "id": "order-service",
+      "type": "custom",
+      "position": { "x": 400, "y": 200 },
+      "data": {
+        "id": "order-service",
+        "label": "Order Service (Spring / Node)",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v4.12.3",
+        "responseTimeMs": 38,
+        "errorRate": 0.04,
+        "cpuUsage": 45,
+        "memoryUsage": 56,
+        "description": "Order creation, state machine management, and checkout orchestration."
+      }
+    },
+    {
+      "id": "payment-service",
+      "type": "custom",
+      "position": { "x": 650, "y": 200 },
+      "data": {
+        "id": "payment-service",
+        "label": "Payment Service (Fintech Gateway)",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v3.8.0",
+        "responseTimeMs": 42,
+        "errorRate": 0.03,
+        "cpuUsage": 52,
+        "memoryUsage": 61,
+        "description": "Payment authorization, charge capture, and ledger synchronization."
+      }
+    },
+    {
+      "id": "inventory-service",
+      "type": "custom",
+      "position": { "x": 900, "y": 200 },
+      "data": {
+        "id": "inventory-service",
+        "label": "Inventory Service",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v1.9.4",
+        "responseTimeMs": 22,
+        "errorRate": 0.01,
+        "cpuUsage": 30,
+        "memoryUsage": 40,
+        "description": "Stock reservation, inventory tracking, and warehouse allocation."
+      }
+    },
+    {
+      "id": "notification-service",
+      "type": "custom",
+      "position": { "x": 250, "y": 350 },
+      "data": {
+        "id": "notification-service",
+        "label": "Notification Service",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v2.0.1",
+        "responseTimeMs": 15,
+        "errorRate": 0.01,
+        "cpuUsage": 18,
+        "memoryUsage": 32,
+        "description": "Multi-channel alerts: SMS, Email, Push notifications, and Webhooks."
+      }
+    },
+    {
+      "id": "shipping-service",
+      "type": "custom",
+      "position": { "x": 550, "y": 350 },
+      "data": {
+        "id": "shipping-service",
+        "label": "Shipping Service",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v1.4.0",
+        "responseTimeMs": 29,
+        "errorRate": 0.02,
+        "cpuUsage": 26,
+        "memoryUsage": 38,
+        "description": "Carrier API integration, tracking generation, and parcel dispatch."
+      }
+    },
+    {
+      "id": "analytics-worker",
+      "type": "custom",
+      "position": { "x": 800, "y": 350 },
+      "data": {
+        "id": "analytics-worker",
+        "label": "Analytics Worker (Stream Processor)",
+        "layer": "services",
+        "type": "Microservice",
+        "status": "healthy",
+        "version": "v3.1.2",
+        "responseTimeMs": 45,
+        "errorRate": 0.02,
+        "cpuUsage": 62,
+        "memoryUsage": 74,
+        "description": "Real-time telemetry event aggregation, anomaly signal detection, and OLAP ingestion."
+      }
+    },
+    {
+      "id": "redis-session-cache",
+      "type": "custom",
+      "position": { "x": 100, "y": 500 },
+      "data": {
+        "id": "redis-session-cache",
+        "label": "Redis Session Cache (Cluster)",
+        "layer": "databases",
+        "type": "Cache",
+        "status": "healthy",
+        "version": "v7.2.4",
+        "responseTimeMs": 2,
+        "errorRate": 0.001,
+        "cpuUsage": 14,
+        "memoryUsage": 35,
+        "description": "Sub-millisecond auth session tokens and rate-limit counters."
+      }
+    },
+    {
+      "id": "postgres-auth",
+      "type": "custom",
+      "position": { "x": 250, "y": 500 },
+      "data": {
+        "id": "postgres-auth",
+        "label": "PostgreSQL (Auth DB)",
+        "layer": "databases",
+        "type": "Database",
+        "status": "healthy",
+        "version": "v16.1",
+        "responseTimeMs": 5,
+        "errorRate": 0.005,
+        "cpuUsage": 22,
+        "memoryUsage": 45,
+        "description": "User credentials, roles, OAuth tokens, and audit log tables."
+      }
+    },
+    {
+      "id": "postgres-orders",
+      "type": "custom",
+      "position": { "x": 450, "y": 500 },
+      "data": {
+        "id": "postgres-orders",
+        "label": "PostgreSQL (Orders DB)",
+        "layer": "databases",
+        "type": "Database",
+        "status": "healthy",
+        "version": "v16.1",
+        "responseTimeMs": 8,
+        "errorRate": 0.008,
+        "cpuUsage": 38,
+        "memoryUsage": 58,
+        "description": "Order records, transactional line items, and fulfillment states."
+      }
+    },
+    {
+      "id": "postgres-payments",
+      "type": "custom",
+      "position": { "x": 650, "y": 500 },
+      "data": {
+        "id": "postgres-payments",
+        "label": "PostgreSQL (Payments DB)",
+        "layer": "databases",
+        "type": "Database",
+        "status": "healthy",
+        "version": "v16.1",
+        "responseTimeMs": 9,
+        "errorRate": 0.007,
+        "cpuUsage": 41,
+        "memoryUsage": 62,
+        "description": "Payment transactions, ledger entries, and tokenized payment methods."
+      }
+    },
+    {
+      "id": "kafka-cluster",
+      "type": "custom",
+      "position": { "x": 850, "y": 500 },
+      "data": {
+        "id": "kafka-cluster",
+        "label": "Kafka Event Bus (3-Broker Cluster)",
+        "layer": "databases",
+        "type": "Queue",
+        "status": "healthy",
+        "version": "v3.6.0",
+        "responseTimeMs": 6,
+        "errorRate": 0.002,
+        "cpuUsage": 34,
+        "memoryUsage": 65,
+        "description": "High-throughput pub/sub event backbone for asynchronous microservice communication."
+      }
+    },
+    {
+      "id": "oci-oke-cluster",
+      "type": "custom",
+      "position": { "x": 300, "y": 650 },
+      "data": {
+        "id": "oci-oke-cluster",
+        "label": "OCI Kubernetes Engine (OKE)",
+        "layer": "cloud",
+        "type": "OCIResource",
+        "status": "healthy",
+        "version": "v1.29.1",
+        "responseTimeMs": 10,
+        "errorRate": 0.001,
+        "cpuUsage": 44,
+        "memoryUsage": 52,
+        "description": "Managed Kubernetes cluster in Oracle Cloud us-chicago-1 region."
+      }
+    },
+    {
+      "id": "oci-genai-service",
+      "type": "custom",
+      "position": { "x": 700, "y": 650 },
+      "data": {
+        "id": "oci-genai-service",
+        "label": "OCI Generative AI (Cohere Command R+)",
+        "layer": "cloud",
+        "type": "OCIResource",
+        "status": "healthy",
+        "version": "Cohere Command R+",
+        "responseTimeMs": 420,
+        "errorRate": 0.0,
+        "cpuUsage": 18,
+        "memoryUsage": 22,
+        "description": "Enterprise LLM reasoning engine for graph-grounded root cause diagnosis and fix generation."
+      }
+    }
+  ],
+  "edges": [
+    { "id": "e-gw-auth", "source": "api-gateway", "target": "auth-service", "data": { "id": "e-gw-auth", "source": "api-gateway", "target": "auth-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 24, "trafficRps": 420 } },
+    { "id": "e-gw-order", "source": "api-gateway", "target": "order-service", "data": { "id": "e-gw-order", "source": "api-gateway", "target": "order-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 48, "trafficRps": 310 } },
+    { "id": "e-gw-payment", "source": "api-gateway", "target": "payment-service", "data": { "id": "e-gw-payment", "source": "api-gateway", "target": "payment-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 55, "trafficRps": 180 } },
+    { "id": "e-gw-inv", "source": "api-gateway", "target": "inventory-service", "data": { "id": "e-gw-inv", "source": "api-gateway", "target": "inventory-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 32, "trafficRps": 220 } },
+    { "id": "e-order-auth", "source": "order-service", "target": "auth-service", "data": { "id": "e-order-auth", "source": "order-service", "target": "auth-service", "type": "CALLS", "protocol": "gRPC", "p99LatencyMs": 12, "trafficRps": 280 } },
+    { "id": "e-order-pay", "source": "order-service", "target": "payment-service", "data": { "id": "e-order-pay", "source": "order-service", "target": "payment-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 58, "trafficRps": 190 } },
+    { "id": "e-order-inv", "source": "order-service", "target": "inventory-service", "data": { "id": "e-order-inv", "source": "order-service", "target": "inventory-service", "type": "CALLS", "protocol": "gRPC", "p99LatencyMs": 19, "trafficRps": 240 } },
+    { "id": "e-pay-auth", "source": "payment-service", "target": "auth-service", "data": { "id": "e-pay-auth", "source": "payment-service", "target": "auth-service", "type": "CALLS", "protocol": "gRPC", "p99LatencyMs": 14, "trafficRps": 180 } },
+    { "id": "e-order-ship", "source": "order-service", "target": "shipping-service", "data": { "id": "e-order-ship", "source": "order-service", "target": "shipping-service", "type": "CALLS", "protocol": "gRPC", "p99LatencyMs": 28, "trafficRps": 85 } },
+    { "id": "e-order-kafka", "source": "order-service", "target": "kafka-cluster", "data": { "id": "e-order-kafka", "source": "order-service", "target": "kafka-cluster", "type": "DEPENDS_ON", "protocol": "AMQP", "p99LatencyMs": 8, "trafficRps": 320 } },
+    { "id": "e-pay-kafka", "source": "payment-service", "target": "kafka-cluster", "data": { "id": "e-pay-kafka", "source": "payment-service", "target": "kafka-cluster", "type": "DEPENDS_ON", "protocol": "AMQP", "p99LatencyMs": 9, "trafficRps": 190 } },
+    { "id": "e-kafka-notif", "source": "kafka-cluster", "target": "notification-service", "data": { "id": "e-kafka-notif", "source": "kafka-cluster", "target": "notification-service", "type": "DEPENDS_ON", "protocol": "AMQP", "p99LatencyMs": 11, "trafficRps": 150 } },
+    { "id": "e-kafka-analytics", "source": "kafka-cluster", "target": "analytics-worker", "data": { "id": "e-kafka-analytics", "source": "kafka-cluster", "target": "analytics-worker", "type": "DEPENDS_ON", "protocol": "AMQP", "p99LatencyMs": 14, "trafficRps": 490 } },
+    { "id": "e-auth-redis", "source": "auth-service", "target": "redis-session-cache", "data": { "id": "e-auth-redis", "source": "auth-service", "target": "redis-session-cache", "type": "DEPENDS_ON", "protocol": "Redis", "p99LatencyMs": 3, "trafficRps": 420 } },
+    { "id": "e-auth-pg", "source": "auth-service", "target": "postgres-auth", "data": { "id": "e-auth-pg", "source": "auth-service", "target": "postgres-auth", "type": "DEPENDS_ON", "protocol": "PostgreSQL", "p99LatencyMs": 7, "trafficRps": 120 } },
+    { "id": "e-order-pg", "source": "order-service", "target": "postgres-orders", "data": { "id": "e-order-pg", "source": "order-service", "target": "postgres-orders", "type": "DEPENDS_ON", "protocol": "PostgreSQL", "p99LatencyMs": 12, "trafficRps": 310 } },
+    { "id": "e-pay-pg", "source": "payment-service", "target": "postgres-payments", "data": { "id": "e-pay-pg", "source": "payment-service", "target": "postgres-payments", "type": "DEPENDS_ON", "protocol": "PostgreSQL", "p99LatencyMs": 11, "trafficRps": 180 } },
+    { "id": "e-oke-services", "source": "order-service", "target": "oci-oke-cluster", "data": { "id": "e-oke-services", "source": "order-service", "target": "oci-oke-cluster", "type": "HOSTED_ON", "protocol": "gRPC", "p99LatencyMs": 2, "trafficRps": 0 } },
+    { "id": "e-analytics-genai", "source": "analytics-worker", "target": "oci-genai-service", "data": { "id": "e-analytics-genai", "source": "analytics-worker", "target": "oci-genai-service", "type": "CALLS", "protocol": "HTTP/REST", "p99LatencyMs": 420, "trafficRps": 10 } }
+  ]
+}
