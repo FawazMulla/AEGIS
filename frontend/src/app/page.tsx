@@ -1,35 +1,45 @@
 import React, { useState } from 'react';
-import { DashboardHeader } from '@/components/shared/DashboardHeader';
+import { DashboardHeader, MainPageView } from '@/components/shared/DashboardHeader';
 import { KPIBar } from '@/components/shared/KPIBar';
-import { GraphCanvas } from '@/components/graph/GraphCanvas';
-import { PreShipPanel } from '@/components/simulation/PreShipPanel';
-import { PostDeployPanel } from '@/components/healing/PostDeployPanel';
+import { OverviewDashboard } from '@/components/dashboard/OverviewDashboard';
+import { FullGraphPage } from '@/components/graph/FullGraphPage';
+import { InteractiveStudio } from '@/components/studio/InteractiveStudio';
 
 export const Page: React.FC = () => {
+  const [currentView, setCurrentView] = useState<MainPageView>('dashboard');
   const [activeMode, setActiveMode] = useState<'simulation' | 'healing'>('simulation');
 
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-background">
-      {/* 1. Header */}
-      <DashboardHeader activeMode={activeMode} onModeChange={setActiveMode} />
+    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-background text-foreground">
+      {/* 1. Header with Primary View Navigation */}
+      <DashboardHeader
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        activeMode={activeMode}
+        onModeChange={setActiveMode}
+      />
 
-      {/* 2. Mission Control KPI Bar */}
+      {/* 2. Mission Control KPI Bar (always visible across all views) */}
       <KPIBar />
 
-      {/* 3. Main Topology & Intelligence Work Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pb-4 overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full">
-          {/* Left Column: Knowledge Graph Topology Canvas (7 cols) */}
-          <div className="lg:col-span-7 h-full min-h-[450px]">
-            <GraphCanvas />
-          </div>
+      {/* 3. Dynamic Page View */}
+      <div className="flex-1 overflow-hidden">
+        {currentView === 'dashboard' && (
+          <OverviewDashboard
+            onNavigateToGraph={() => setCurrentView('graph')}
+            onNavigateToStudio={(mode) => {
+              if (mode) setActiveMode(mode);
+              setCurrentView('studio');
+            }}
+          />
+        )}
 
-          {/* Right Column: Dual-Mode Intelligence Panel (5 cols) */}
-          <div className="lg:col-span-5 h-full overflow-hidden">
-            {activeMode === 'simulation' ? <PreShipPanel /> : <PostDeployPanel />}
-          </div>
-        </div>
-      </main>
+        {currentView === 'graph' && <FullGraphPage />}
+
+        {currentView === 'studio' && (
+          <InteractiveStudio activeMode={activeMode} />
+        )}
+      </div>
     </div>
   );
 };
