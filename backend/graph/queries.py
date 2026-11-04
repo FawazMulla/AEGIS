@@ -1,0 +1,6 @@
+GET_NODE = "MATCH (n {id: $node_id, project_id: $project_id}) RETURN n"
+GET_PREDECESSORS = "MATCH (p)-[:CALLS|DEPENDS_ON]->(n {id: $node_id, project_id: $project_id}) RETURN p.id AS id"
+GET_SUCCESSORS = "MATCH (n {id: $node_id, project_id: $project_id})-[:CALLS|DEPENDS_ON]->(s) RETURN s.id AS id"
+GET_SUBGRAPH = "MATCH path = (n {id: $service_id, project_id: $project_id})-[*1..$hops]-(m) RETURN path"
+ADD_INCIDENT = "MATCH (s {id: $service_id, project_id: $project_id}) CREATE (inc:Incident {id: $incident_id, description: $description, timestamp: datetime(), project_id: $project_id, decision_data: $decision_data}) CREATE (s)-[:EXPERIENCED]->(inc) RETURN inc.id AS id"
+GET_INCIDENTS = "MATCH (s {id: $service_id, project_id: $project_id})-[:EXPERIENCED]->(inc:Incident) RETURN inc ORDER BY inc.timestamp DESC"
